@@ -51,18 +51,9 @@ def createPostingList(documents, unique_words):
             term_freq = text_tokens.count(word)
             if term_freq > 0:
                 posting_list[(word, document_frequencies[word])].append(
-                    (doc_name, term_freq)
+                    (doc_name, calculatetfWeight(term_freq))
                 )
 
-    # Modifying the posting list to include the tf-idf weight
-    for key, value in posting_list.items():
-        for doc_name, term_freq in value:
-            print(f"Calculating tf-idf weight for {key[0]} in {doc_name}")
-            if term_freq > 0:
-                tf_weight = calculatetfWeight(term_freq)
-            if key[1] > 0:
-                idf_weight = 1
-            posting_list[key].append((doc_name, tf_weight * idf_weight))
 
     return posting_list
 
